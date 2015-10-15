@@ -7,10 +7,12 @@ import java.util.Date;
  */
 public class NormalTweet extends Tweet {
     public NormalTweet(String tweet, Date date) {
+
         super(tweet, date);
     }
 
     public NormalTweet(String tweet) {
+
         super(tweet);
     }
 

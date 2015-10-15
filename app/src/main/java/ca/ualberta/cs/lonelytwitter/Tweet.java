@@ -20,7 +20,7 @@ public abstract class Tweet extends Object implements Tweetable {
         this.date = new Date();
     }
 
-    public String getText() {
+        public String getText() {
         return text;
     }
 

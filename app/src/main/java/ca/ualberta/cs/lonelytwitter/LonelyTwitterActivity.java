@@ -12,8 +12,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,12 +25,32 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
-
+	private LonelyTwitterActivity activity = this;
 	private static final String FILENAME = "file.sav";
-	private EditText bodyText;
-	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
+	public Button getSaveButton() {
+		return saveButton;
+	}
+
+	private Button saveButton;
+
+	public EditText getBodyText() {
+		return bodyText;
+	}
+
+	private EditText bodyText;
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	private ArrayAdapter<Tweet> adapter;
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
+
 	private ListView oldTweetsList;
 
 	/** Called when the activity is first created. */
@@ -39,7 +61,7 @@ public class LonelyTwitterActivity extends Activity {
 		setContentView(R.layout.main);
 
 		bodyText = (EditText) findViewById(R.id.body);
-		Button saveButton = (Button) findViewById(R.id.save);
+		saveButton = (Button) findViewById(R.id.save);
 		Button clearButton = (Button) findViewById(R.id.clear);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 		clearButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +85,17 @@ public class LonelyTwitterActivity extends Activity {
 
 			}
 		});
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent newIntent = new Intent(activity, EditTweetActivity.class);
+
+				String strName = oldTweetsList.;
+				newIntent.putExtra("STRING_I_NEED", strName);
+				startActivity(newIntent);
+			}
+
+
+		});
 	}
 
 	@Override
@@ -73,6 +106,7 @@ public class LonelyTwitterActivity extends Activity {
 		adapter   = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
+
 		adapter.notifyDataSetChanged();
 	}
 
